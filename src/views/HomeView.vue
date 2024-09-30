@@ -2,6 +2,7 @@
 import ImageModal from '@/components/ImageModal.vue'
 import { onMounted, ref } from 'vue'
 import ImageCards from '../components/ImageCards.vue'
+import axios from 'axios'
 
 const isLoading = ref(false)
 const searchLoading = ref(false)
@@ -16,18 +17,13 @@ const fetchPhotos = async () => {
   isLoading.value = true
   const apiUrl = `https://api.unsplash.com/photos?per_page=8`
   try {
-    const response = await fetch(apiUrl, {
+    const response = await axios.get(apiUrl, {
       headers: {
         Authorization: `Client-ID ${accessKey}`
       }
     })
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch photos')
-    }
-
-    const photos = await response.json()
-    imageData.value = photos
+    imageData.value = response.data
     setTimeout(() => {
       isLoading.value = false
     }, 700)
@@ -41,18 +37,13 @@ const fetchSearchPhotos = async (query) => {
   const apiUrl = `https://api.unsplash.com/search/photos?query=${query}&per_page=8`
   searchLoading.value = true
   try {
-    const response = await fetch(apiUrl, {
+    const response = await axios.get(apiUrl, {
       headers: {
         Authorization: `Client-ID ${accessKey}`
       }
     })
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch search results')
-    }
-
-    const data = await response.json()
-    imageData.value = data.results
+    imageData.value = response.data.results
     searchLoading.value = false
     searchResults.value = true
   } catch (error) {
@@ -90,7 +81,6 @@ const openModal = (card) => {
 const closeModal = () => {
   showModal.value = false
 }
-
 </script>
 
 <template>
