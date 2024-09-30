@@ -1,10 +1,13 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 import ImageCard from './ImageCard.vue'
 import LoadingCard from '@/components/LoadingCard.vue'
 
 defineProps({
-  searchLoading: Boolean
+  searchLoading: Boolean,
+  imageData: Array,
+  isLoading: Boolean,
+  openModal: Function
 })
 
 const cards = ref(
@@ -15,11 +18,16 @@ const cards = ref(
 </script>
 
 <template>
-  <div class="imageCardContainer" v-if="searchLoading">
+  <div class="imageCardContainer" v-if="searchLoading || isLoading">
     <LoadingCard v-for="card in cards" :key="card" />
   </div>
   <div class="imageCardContainer" v-if="!searchLoading">
-    <ImageCard v-for="card in cards" :key="card" />
+    <ImageCard
+      v-for="card in imageData"
+      :key="card.id"
+      :cardData="card"
+      :openModal="openModal"
+    />
   </div>
 </template>
 

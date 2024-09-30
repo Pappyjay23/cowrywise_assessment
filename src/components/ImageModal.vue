@@ -1,20 +1,24 @@
 <script setup>
-import CardBg from '@/assets/images/card-bg.png'
+defineProps({
+  selectedCard: Object,
+  showModal: Boolean,
+  closeModal: Function
+})
 </script>
 
 <template>
-  <div class="imageModal" @click="$emit('close')">
+  <div v-if="showModal" class="imageModal">
     <div class="modalContainer">
       <div class="modalButtonContainer">
-        <p class="modalCloseBtn"><v-icon name="io-close-sharp"></v-icon></p>
+        <p @click="closeModal" class="modalCloseBtn"><v-icon name="io-close-sharp"></v-icon></p>
       </div>
       <div class="modalCard">
         <div class="modalImageContainer">
-          <img :src="CardBg" alt="Modal Card Image" />
+          <img :src="selectedCard?.urls?.regular" alt="Modal Card Image" />
         </div>
         <div class="modalTextContainer">
-          <p class="modalTextAuthor">Fredrick Apata</p>
-          <p class="modalTextLocation">Lagos, Nigeria</p>
+          <p class="modalTextAuthor">{{ selectedCard?.user?.name || 'Unknown Author' }}</p>
+          <p class="modalTextLocation">{{ selectedCard?.user?.location || 'Unknown Location' }}</p>
         </div>
       </div>
     </div>
@@ -48,7 +52,7 @@ import CardBg from '@/assets/images/card-bg.png'
       justify-content: flex-end;
       padding: 1rem;
 
-      .modalCloseBtn{
+      .modalCloseBtn {
         cursor: pointer;
       }
     }
@@ -56,7 +60,7 @@ import CardBg from '@/assets/images/card-bg.png'
     .modalCard {
       width: 90%;
       height: 90%;
-      background: red;
+      background: #e6e6e6;
       margin: auto;
       border-radius: 8px;
       overflow: hidden;

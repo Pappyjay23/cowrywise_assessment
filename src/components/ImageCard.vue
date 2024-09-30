@@ -1,13 +1,25 @@
 <script setup>
-import CardBg from '@/assets/images/card-bg.jpeg'
+
+defineProps({
+  cardData: Object,
+  openModal: Function
+})
 </script>
 
 <template>
-  <div class="imageCard" :style="{ backgroundImage: `url(${CardBg})` }">
+  <div
+    @click="openModal(cardData)"
+    class="imageCard"
+    :style="{ backgroundImage: `url(${cardData.urls.regular})` }"
+  >
     <div class="imageOverlay"></div>
     <div class="imageTextContainer">
-      <p class="imageTextAuthor">Jordan Okeke</p>
-      <p class="imageTextLocation">Pretoria, South Africa</p>
+      <p class="imageTextAuthor">
+        {{ cardData.user.name ? cardData.user.name : 'Unknown Author' }}
+      </p>
+      <p class="imageTextLocation">
+        {{ cardData.user.location ? cardData.user.location : 'Unknown Location' }}
+      </p>
     </div>
   </div>
 </template>
