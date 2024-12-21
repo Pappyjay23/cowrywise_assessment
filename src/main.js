@@ -2,12 +2,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { OhVueIcon, addIcons } from 'oh-vue-icons'
-import { PrSearch, IoCloseSharp } from "oh-vue-icons/icons";
+import { PrSearch, IoCloseSharp, IoArrowBackCircleSharp } from "oh-vue-icons/icons";
 
 const app = createApp(App)
 
 addIcons(
-    PrSearch, IoCloseSharp
+    PrSearch, IoCloseSharp, IoArrowBackCircleSharp
 )
 
 app.use(router)

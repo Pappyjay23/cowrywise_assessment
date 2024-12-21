@@ -67,6 +67,12 @@ const handleKeyPress = (event) => {
   }
 }
 
+const resetSearch = () => {
+  searchLoading.value = false
+  searchResults.value = false
+  searchQuery.value = ''
+}
+
 onMounted(() => {
   fetchPhotos()
 })
@@ -86,6 +92,9 @@ const closeModal = () => {
 <template>
   <main>
     <div class="searchSection">
+      <div class="buttonGroup" v-if="searchResults">
+        <button @click="resetSearch" class="resetButton"><v-icon name="io-arrow-back-circle-sharp" class="backIcon" scale="2"></v-icon><span>Back to Home</span></button>
+      </div>
       <div class="searchForm" v-if="!searchLoading && !searchResults">
         <v-icon class="searchIcon" name="pr-search" @click="handleSearch" />
         <input
@@ -121,7 +130,33 @@ const closeModal = () => {
   background: #dde2e9;
   height: 30vh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
+  .buttonGroup{
+    width: 70%;
+    margin: 0 auto 2rem auto;
+    display: flex;
+
+    .resetButton {
+      background: transparent;
+      border: 0;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+
+      .backIcon{
+        color: #4a576d;
+      }
+
+      span{
+        color: #253858;
+        font-weight: 500;
+        font-size: 1rem;
+      }
+    }
+  }
 
   .searchForm {
     background: #fff;
