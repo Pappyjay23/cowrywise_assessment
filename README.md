@@ -1,5 +1,5 @@
 <div align="center">
-	<h1> Mini Unsplash Clone</h1>
+<h1> Unsplash Clone </h1>
 </div>
 
 ## Snapshots 📸
